@@ -11,6 +11,10 @@ import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listView;
+    private String[] from = {"title"};
+    private int[] to = {R.id.item_title};
+    private LinkedList<HashMap<String,String>> data = new LinkedList<>();
+    private SimpleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +27,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListView(){
-        String[] from = {};
-        int[] to = {};
-        LinkedList<HashMap<String,String>> data = new LinkedList<>();
-        SimpleAdapter adapter = new SimpleAdapter(this, data,R.layout.item,from,to);
+        HashMap<String,String> d0 = new HashMap<>();
+        d0.put(from[0], "Test1");
+        data.add(d0);
+
+        HashMap<String,String> d1 = new HashMap<>();
+        d1.put(from[0], "Test2");
+        data.add(d1);
+
+        HashMap<String,String> d2 = new HashMap<>();
+        d2.put(from[0], "Test3");
+        data.add(d2);
+
+        adapter = new SimpleAdapter(this, data,R.layout.item,from,to);
         listView.setAdapter(adapter);
 
     }
 
     public void add(View view) {
+        HashMap<String,String> d2 = new HashMap<>();
+        d2.put(from[0], "Test3");
+        data.add(d2);
+        adapter.notifyDataSetChanged();
+
+
     }
     public void del(View view) {
+        if (data.size()>0){
+            data.remove(0);
+        }
+        adapter.notifyDataSetChanged();
     }
 }
